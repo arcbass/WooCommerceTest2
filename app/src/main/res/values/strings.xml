@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">WooCommerceTest2</string>
+    <string name="text_password">password</string>
+    <string name="text_email">email</string>
+    <string name="text_user">username</string>
+    <string name="txt_get">GET</string>
+    <string name="txt_post">POST</string>
+    <string name="txt_put">PUT</string>
+    <string name="txt_delete">DELETE</string>
 </resources>

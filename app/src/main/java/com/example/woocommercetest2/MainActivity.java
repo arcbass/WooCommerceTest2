@@ -1,14 +1,24 @@
 package com.example.woocommercetest2;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.common.interfaces.ICostumersView;
 import com.example.common.model.Customer;
 import com.example.common.presenter.CustomerPresenter;
+import com.example.woocommercetest2.fragments.DELETEtab;
+import com.example.woocommercetest2.fragments.GETtab;
+import com.example.woocommercetest2.fragments.POSTtab;
+import com.example.woocommercetest2.fragments.PUTtab;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,13 +26,12 @@ import java.util.List;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity implements ICostumersView {
+public class MainActivity extends AppCompatActivity {
 
-    private List<Customer> customersList = new ArrayList<>();
-    private RecyclerView recyclerView;
-    private LinearLayoutManager layoutManager;
-    private RepositoryAdapter adapter;
 
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
 
     @Override
@@ -30,23 +39,57 @@ public class MainActivity extends AppCompatActivity implements ICostumersView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = (RecyclerView) findViewById(R.id.customer_recycle_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), LinearLayoutManager.VERTICAL);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        CustomerPresenter customerPresenter = new CustomerPresenter(this);
-        customerPresenter.getCustomers(AndroidSchedulers.mainThread(), Schedulers.io());
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
 
-    }
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-    @Override
-    public void showRepositories(List<Customer> allCostumers) {
-        customersList = allCostumers;
-        adapter = new RepositoryAdapter(customersList);
-        recyclerView.setAdapter(adapter);
 
     }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new GETtab(), "GET");
+        adapter.addFragment(new POSTtab(), "POST");
+        adapter.addFragment(new PUTtab(), "PUT");
+        adapter.addFragment(new DELETEtab(), "DELETE");
+        viewPager.setAdapter(adapter);
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+
 }

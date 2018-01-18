@@ -28,4 +28,5 @@ dependencies {
     implementation project(':common')
     compile 'io.reactivex:rxandroid:1.2.1'
     compile 'com.android.support:recyclerview-v7:26.+'
+    compile 'com.android.support:design:26.+'
 }

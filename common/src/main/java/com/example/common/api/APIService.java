@@ -4,8 +4,10 @@ import com.example.common.model.Customer;
 
 import java.util.List;
 
+import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Path;
 import rx.Observable;
 
 /**
@@ -16,5 +18,10 @@ public interface APIService {
     @GET("/wp-json/wc/v2/customers")
     Observable<List<Customer>> getCustomers(
             @Header("Authorization") String authKey
+    );
+
+    @GET("/wp-json/wc/v2/customers/{id}")
+    Call<Customer> getCustomer (
+            @Path("id") long id
     );
 }
