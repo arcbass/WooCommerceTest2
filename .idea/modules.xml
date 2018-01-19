@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/WooCommerceTest2.iml" filepath="$PROJECT_DIR$/WooCommerceTest2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/WooCommerceTest2.iml" filepath="$PROJECT_DIR$/.idea/WooCommerceTest2.iml" />
+      <module fileurl="file://C:\Users\user\AndroidStudioProjects\WooCommerceTest2\WooCommerceTest2.iml" filepath="C:\Users\user\AndroidStudioProjects\WooCommerceTest2\WooCommerceTest2.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\user\AndroidStudioProjects\WooCommerceTest2\app\app.iml" filepath="C:\Users\user\AndroidStudioProjects\WooCommerceTest2\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://C:\Users\user\AndroidStudioProjects\WooCommerceTest2\common\common.iml" filepath="C:\Users\user\AndroidStudioProjects\WooCommerceTest2\common\common.iml" />
     </modules>
   </component>
 </project>

@@ -68,4 +68,7 @@ public class GETtab extends Fragment  implements ICostumersView {
         recyclerView.setAdapter(adapter);
 
     }
+
+    @Override
+    public void postCustomer(Customer customer) {}
 }

@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface ICostumersView {
     void showRepositories(List<Customer> allCostumers);
+
+    void postCustomer(Customer customer);
 }

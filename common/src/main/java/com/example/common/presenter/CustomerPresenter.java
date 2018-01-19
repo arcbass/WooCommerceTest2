@@ -17,13 +17,18 @@ import rx.Subscriber;
 public class CustomerPresenter {
 
     ICostumersView mView;
+    APIService service = null;
+
 
     public CustomerPresenter(ICostumersView view) {
+
         this.mView = view;
+        if(service == null){
+            service = ServiceGenerator.createService(APIService.class);
+        }
     }
 
     public void getCustomers(Scheduler postThread, Scheduler subscribeThread){
-        APIService service = ServiceGenerator.createService(APIService.class);
 
         service.getCustomers(ServiceGenerator.getAuthToken())
                 .subscribeOn(subscribeThread)
@@ -44,5 +49,26 @@ public class CustomerPresenter {
                     }
                 });
 
+    }
+
+    public void postCustomer(Scheduler postThread, Scheduler subscribeThread, Customer customer) {
+        service.postCustomer(ServiceGenerator.getAuthToken(), customer)
+                .subscribeOn(subscribeThread)
+                .observeOn(postThread)
+                .subscribe(new Subscriber<Customer>() {
+
+                    @Override
+                    public void onNext(Customer customer) {
+                        mView.postCustomer(customer);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                    }
+                });
     }
 }
